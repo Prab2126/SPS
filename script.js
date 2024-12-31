@@ -95,8 +95,15 @@ if (innerWidth <= 743) {
   }
 
   function Ending() {
-    if (userHeart == 0) final.children[0].innerHTML = "You Lose";
-    else if (botHeart == 0) final.children[0].innerHTML = "You Win";
+    const win = new Audio("mp3/win.mp3");
+    const lose = new Audio("mp3/lose.mp3");
+    if (userHeart == 0) {
+      final.children[0].innerHTML = "You Lose";
+      lose.play();
+    } else if (botHeart == 0) {
+      final.children[0].innerHTML = "You Win";
+      win.play();
+    }
     botHeart = 5;
     userHeart = 5;
     scores[1].innerText = botHeart;
