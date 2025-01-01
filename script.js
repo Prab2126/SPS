@@ -1,76 +1,62 @@
 let main = document.querySelector("main");
 let scores = document.querySelector("#scores").children;
 let message = document.querySelector(".message");
-console.log(innerWidth);
-if (innerWidth <= 743) {
-  main.style.color = "white";
-  main.style.fontWeight = "bold";
-  main.innerHTML =
-    "Pls open this website in big screen because this website is not more responsive";
-} else {
-  let gameArea = document.querySelector("#game-area");
-  main.insertAdjacentHTML(
-    "afterbegin",
+let userHeart = 5;
+let botHeart = 5;
+let session1 = sessionStorage.getItem("userHeart");
+let session2 = sessionStorage.getItem("botHeart");
+userHeart = +session1;
+botHeart = +session2;
+NumAnim(1, botHeart);
+NumAnim(0, userHeart);
 
-    `<div class="main1">
-     <div id="heading">
-                <h1>rock paper</h1>
-                <h2>scissors</h2>
-              </div>
-              <img class="frontimg" id="img1" src="img/Picsart_24-12-29_10-42-32-495.png" alt="" />
-              <img class="frontimg"
-                id="img2"
-                src="img/Picsart_24-12-29_10-40-35-157.png"
-                alt="not found"
-              />
-              <button class="classicbtn">Play</button></div>`
-  );
+let gameArea = document.querySelector("#game-area");
 
-  let StartBtn = document.querySelector(".classicbtn");
-  StartBtn.addEventListener("click", () => {
-    main.removeChild(main.children[0]);
-    gameArea.style.display = "flex";
-  });
+function messageRun(value) {
+  message.innerHTML = value;
+  scores[1].classList.remove("fontsizeINC");
+  message.style.transform = " translate(-50%, -50%) scale(1)";
+
+  setTimeout(() => {
+    message.style.transform = " translate(-50%, -50%) scale(0)";
+  }, 1500);
+}
+
+function NumAnim(index, variable, check) {
+  if (userHeart == 0 || botHeart == 0) {
+    sessionStorage.setItem("userHeart", 5);
+    sessionStorage.setItem("botHeart", 5);
+  } else {
+    sessionStorage.setItem("userHeart", userHeart);
+    sessionStorage.setItem("botHeart", botHeart);
+  }
+
+  scores[index].style.filter = ` saturate(${40 * variable}%)`;
+  if (check) {
+    scores[index].classList.add("fontsizeINC");
+    setTimeout(() => {
+      messageRun("you win");
+      scores[index].classList.remove("fontsizeINC");
+    }, 300);
+  }
+
+  scores[index].innerText = variable;
+}
+
+function Mainlogics() {
   let final = document.querySelector(".final");
-
-  let userHeart = 5;
-  let botHeart = 5;
-  const URLS = ["img/paper.png", "img/stone.png", "img/scissors.png"];
+  const URLS = ["img/paper.webp", "img/stone.webp", "img/scissors.webp"];
   let humanHand = document.querySelector("#humanHand");
   let botHand = document.querySelector("#botHand");
   let boxImg = document.querySelectorAll(".hands img");
 
-  function messageRun(value) {
-    message.innerHTML = value;
-    scores[1].classList.remove("fontsizeINC");
-    message.style.transform = " translate(-50%, -50%) scale(1)";
-
-    setTimeout(() => {
-      message.style.transform = " translate(-50%, -50%) scale(0)";
-    }, 1500);
-  }
-
   function numdec(check) {
     if (check) {
       botHeart -= 1;
-      scores[1].classList.add("fontsizeINC");
-      scores[1].style.filter = ` saturate(${40 * botHeart}%)`;
-      setTimeout(() => {
-        messageRun("you win");
-        scores[1].classList.remove("fontsizeINC");
-      }, 300);
-      scores[1].innerText = botHeart;
+      NumAnim(1, botHeart, true);
     } else {
       userHeart -= 1;
-      scores[0].classList.add("fontsizeINC");
-      scores[0].style.filter = ` saturate(${40 * userHeart}%)`;
-
-      setTimeout(() => {
-        messageRun(" bot win");
-        scores[0].classList.remove("fontsizeINC");
-      }, 300);
-
-      scores[0].innerText = userHeart;
+      NumAnim(0, userHeart, true);
     }
 
     if (userHeart == 0 || botHeart == 0) {
@@ -152,4 +138,40 @@ if (innerWidth <= 743) {
       }, 1500);
     });
   });
+}
+
+if (innerWidth <= 743) {
+  main.style.color = "white";
+  main.style.fontWeight = "bold";
+  main.innerHTML =
+    "Pls open this website in big screen because this website is not more responsive";
+} else {
+  if (userHeart == 5 && botHeart == 5) {
+    main.insertAdjacentHTML(
+      "afterbegin",
+
+      `<div class="main1">
+       <div id="heading">
+                  <h1>rock paper</h1>
+                  <h2>scissors</h2>
+                </div>
+                <img class="frontimg" id="img1" src="img/Picsart_24-12-29_10-42-32-495.webp" alt="" />
+                <img class="frontimg"
+                  id="img2"
+                  src="img/Picsart_24-12-29_10-40-35-157.webp"
+                  alt="not found"
+                />
+                <button class="classicbtn">Play</button></div>`
+    );
+
+    let StartBtn = document.querySelector(".classicbtn");
+    StartBtn.addEventListener("click", () => {
+      main.removeChild(main.children[0]);
+      gameArea.style.display = "flex";
+      Mainlogics();
+    });
+  } else {
+    gameArea.style.display = "flex";
+    Mainlogics();
+  }
 }

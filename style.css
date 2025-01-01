@@ -9,8 +9,7 @@
   outline: none;
 }
 body {
-  background: url("img/a-vibrant-outer-space-themed-landscape-w_N4Hs2k_cQQKcFrpoTR5FjA_hnWUqTu9QHyAtW_I37zcqw.jpeg")
-    no-repeat;
+  background: url("img/classicBg.webp") no-repeat;
   background-size: cover;
   background-position: center center;
   height: 100vh;
@@ -84,8 +83,7 @@ main {
   scale: 1.3;
 }
 #game-area {
-  background: url("img/a-comic-style-background-split-diagonall_0axZwcv6QIOIjJtMc8tBeQ_bJHo4V3uRnm0fKDIxuefWw.jpeg"),
-    black no-repeat;
+  background: url("img/gameBg.webp"), black no-repeat;
   background-position-x: 0%, 0%;
   background-position-y: 0%, 0%;
   background-size: auto, auto;
