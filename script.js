@@ -15,7 +15,6 @@ function messageRun(value) {
   message.innerHTML = value;
   scores[1].classList.remove("fontsizeINC");
   message.style.transform = " translate(-50%, -50%) scale(1)";
-
   setTimeout(() => {
     message.style.transform = " translate(-50%, -50%) scale(0)";
   }, 1500);
@@ -29,14 +28,13 @@ function NumAnim(index, variable, check) {
     sessionStorage.setItem("userHeart", userHeart);
     sessionStorage.setItem("botHeart", botHeart);
   }
-  scores[index].style.filter = ` saturate(${40 * variable}%)`;
   if (check) {
     scores[index].classList.add("fontsizeINC");
     setTimeout(() => {
-      messageRun("you win");
       scores[index].classList.remove("fontsizeINC");
     }, 300);
   }
+  scores[index].style.filter = ` saturate(${40 * variable}%)`;
 
   scores[index].innerText = variable;
 }
@@ -51,9 +49,11 @@ function Mainlogics() {
   function numdec(check) {
     if (check) {
       botHeart -= 1;
+      messageRun(" You win");
       NumAnim(1, botHeart, true);
     } else {
       userHeart -= 1;
+      messageRun(" bot win");
       NumAnim(0, userHeart, true);
     }
 
