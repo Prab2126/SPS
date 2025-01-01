@@ -3,12 +3,9 @@ let scores = document.querySelector("#scores").children;
 let message = document.querySelector(".message");
 let userHeart = 5;
 let botHeart = 5;
+
 NumAnim(1, botHeart);
 NumAnim(0, userHeart);
-let session1 = sessionStorage.getItem("userHeart");
-let session2 = sessionStorage.getItem("botHeart");
-userHeart = +session1;
-botHeart = +session2;
 
 let gameArea = document.querySelector("#game-area");
 
@@ -30,7 +27,10 @@ function NumAnim(index, variable, check) {
     sessionStorage.setItem("userHeart", userHeart);
     sessionStorage.setItem("botHeart", botHeart);
   }
-
+  let session1 = sessionStorage.getItem("userHeart");
+  let session2 = sessionStorage.getItem("botHeart");
+  userHeart = +session1;
+  botHeart = +session2;
   scores[index].style.filter = ` saturate(${40 * variable}%)`;
   if (check) {
     scores[index].classList.add("fontsizeINC");
